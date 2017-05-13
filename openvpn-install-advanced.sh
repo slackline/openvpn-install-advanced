@@ -40,8 +40,11 @@ elif [[ -e /etc/centos-release || -e /etc/redhat-release ]]; then
 	RCLOCAL='/etc/rc.d/rc.local'
 	# Needed for CentOS 7
 	chmod +x /etc/rc.d/rc.local
+elif [[ -e /etc/arch-release]]; then
+	OS=arch
+	RCLOCAL='/etc/rc.local'
 else
-	echo "Looks like you aren't running this installer on a Debian, Ubuntu or CentOS system"
+	echo "Looks like you aren't running this installer on a Debian, Ubuntu, CentOS or Arch system"
 	exit
 fi
 
@@ -191,7 +194,7 @@ if [ -e /etc/openvpn/$UDP_SERVICE_AND_CONFIG_NAME.conf -o -e /etc/openvpn/$TCP_S
 				systemctl restart openvpn
 			else
 				if [[ "$OS" = 'debian' ]]; then
-					/etc/init.d/openvpn restart
+    				        /etc/init.d/openvpn restart
 				else
 					service openvpn restart
 				fi
@@ -461,7 +464,7 @@ else
 	echo "Please, use one word only, no special characters"
 	read -p "Client name: " -e -i client CLIENT
 	echo ""
-	
+
 		if [[ "$OS" = 'debian' ]]; then
 		apt-get update -qq
 		apt-get install openvpn iptables openssl -y -qq
