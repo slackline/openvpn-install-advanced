@@ -195,7 +195,11 @@ if [ -e /etc/openvpn/$UDP_SERVICE_AND_CONFIG_NAME.conf -o -e /etc/openvpn/$TCP_S
 			# And restart
 
 			if pgrep systemd-journal; then
-				systemctl restart openvpn
+    			        if [[ "$OS" = "arch" ]]; then
+       				    systemctl restart openvpn-server@server.service
+				else
+				    systemctl restart openvpn
+				fi
 			else
 				if [[ "$OS" = 'debian' ]]; then
     				        /etc/init.d/openvpn restart
