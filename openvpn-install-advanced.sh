@@ -197,6 +197,7 @@ if [ -e /etc/openvpn/$UDP_SERVICE_AND_CONFIG_NAME.conf -o -e /etc/openvpn/$TCP_S
 			if pgrep systemd-journal; then
     			        if [[ "$OS" = "arch" ]]; then
        				    systemctl restart openvpn-server@server.service
+                     		    ## systemctl start openvpn-client@client.service
 				else
 				    systemctl restart openvpn
 				fi
@@ -788,7 +789,12 @@ WantedBy=multi-user.target" > /etc/systemd/system/$TCP_SERVICE_AND_CONFIG_NAME.s
 	fi
 
 	if pgrep systemd-journal; then
-		sudo systemctl start openvpn.service
+                if [[ "$OS" = 'arch' ]]; then
+		    systemctl start openvpn-server@server.service
+		    ## systemctl start openvpn-client@client.service
+		else
+		    sudo systemctl start openvpn.service
+	        fi
 	else
 		if [[ "$OS" = 'debian' ]]; then
 			/etc/init.d/openvpn start
