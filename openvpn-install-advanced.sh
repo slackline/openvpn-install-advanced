@@ -43,6 +43,10 @@ elif [[ -e /etc/centos-release || -e /etc/redhat-release ]]; then
 elif [[ -e /etc/arch-release]]; then
 	OS=arch
 	RCLOCAL='/etc/rc.local'
+	if [[ ! -e /etc/rc.local ]]; then
+	    echo "Please install https://aur.archlinux.org/packages/rc-local/"
+	    exit
+	fi
 else
 	echo "Looks like you aren't running this installer on a Debian, Ubuntu, CentOS or Arch system"
 	exit
