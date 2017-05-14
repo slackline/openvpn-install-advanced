@@ -40,7 +40,7 @@ elif [[ -e /etc/centos-release || -e /etc/redhat-release ]]; then
 	RCLOCAL='/etc/rc.d/rc.local'
 	# Needed for CentOS 7
 	chmod +x /etc/rc.d/rc.local
-elif [[ -e /etc/arch-release]]; then
+elif [[ -e /etc/arch-release ]]; then
 	OS=arch
 	RCLOCAL='/etc/rc.local'
 	if [[ ! -e /etc/rc.local ]]; then
